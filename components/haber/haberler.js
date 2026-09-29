@@ -42,9 +42,9 @@ const data = [
 /*
 Adım 1: Haber oluşturmak için 'HaberYapici' adında bir bileşen(component) oluşturun.
 Bileşeniniz, bir haber nesnesini argüman olarak alan bir fonksiyon olacak,
-ve aşağıdaki gibi görünen bir DOM düğümü oluşturup geri dönecek:
+ve aşağıdaki gibi görünen bir DOM düğümü oluşturup geri dönecek:*/
 
-<div class="article">
+/*<div class="article">
   <h2>{haber başlığı}</h2>
   <p class="tarih">{haber tarihi}</p>
 
@@ -65,3 +65,42 @@ Yazdığınız 'HaberYapici' component'ini kullanarak bir div.article öğesi ol
 
 Adım 5: Yukarıdaki haberleri için data isimli diziye bulduğunuz bir teknoloji haberini eklemeyi deneyin. Diğer haber objeleri ile aynı yapıda olmasına dikkat edin.
 */
+
+function haberYapıcı(obj) {
+  let div = document.createElement('div');
+  div.classList.add('article');
+  let h2 = document.createElement('h2');
+  h2.textContent = obj.baslik;
+  div.appendChild(h2);
+  let p = document.createElement('p');
+  p.textContent = obj.tarih;
+  p.classList.add('tarih');
+  div.appendChild(p);
+
+  let p1 = document.createElement('p');
+  p1.textContent = obj.ilkParagraf;
+  div.appendChild(p1);
+  let p2 = document.createElement('p');
+  p2.textContent = obj.ikinciParagraf;
+  div.appendChild(p2);
+  let p3 = document.createElement('p');
+  p3.textContent = obj.ucuncuParagraf;
+  div.appendChild(p3);
+
+  let button = document.createElement('button');
+  button.classList.add('expandButton');
+  button.textContent = '+';
+  button.addEventListener('click', function (event) {
+    event.target.parentElement.classList.toggle('article-open');
+  });
+
+  div.appendChild(button);
+  return div;
+}
+
+let articles = document.querySelectorAll('div.articles')[0];
+
+for (let i = 0; i < data.length; i++) {
+  const haber = haberYapıcı(data[i]);
+  articles.appendChild(haber);
+}
